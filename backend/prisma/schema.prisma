@@ -1,0 +1,59 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./uno.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model PlayerProfile {
+  id            String        @id @default(uuid())
+  username      String        @unique
+  avatarId      String
+  wins          Int           @default(0)
+  losses        Int           @default(0)
+  gamesPlayed   Int           @default(0)
+  longestStreak Int           @default(0)
+  favoriteColor String        @default("RED")
+  history       MatchPlayer[]
+  createdAt     DateTime      @default(now())
+}
+
+model Match {
+  id          String        @id @default(uuid())
+  roomCode    String
+  winnerId    String?
+  durationSec Int
+  turnsPlayed Int
+  gameVariant String        @default("CLASSIC")
+  createdAt   DateTime      @default(now())
+  players     MatchPlayer[]
+  moves       GameMove[]
+}
+
+model MatchPlayer {
+  id              String        @id @default(uuid())
+  matchId         String
+  match           Match         @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  playerProfileId String
+  playerProfile   PlayerProfile @relation(fields: [playerProfileId], references: [id], onDelete: Cascade)
+  cardsPlayed     Int           @default(0)
+  cardsDrawn      Int           @default(0)
+  unoCalls        Int           @default(0)
+
+  @@unique([matchId, playerProfileId])
+}
+
+model GameMove {
+  id        String   @id @default(uuid())
+  matchId   String
+  match     Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  turnIndex Int
+  playerId  String
+  playerName String
+  action    String   // "PLAY", "DRAW", "PASS", "UNO", "CHALLENGE"
+  card      String?  // e.g. "R_6", "W_WD4"
+  color     String?  // Chosen color if Wild
+  timestamp DateTime @default(now())
+}

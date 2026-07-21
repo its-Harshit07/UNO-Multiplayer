@@ -1,0 +1,19 @@
+{
+  "totalGames": 10000,
+  "totalMoves": 991208,
+  "averageMovesPerGame": 99.12,
+  "totalDrawnCards": 192500,
+  "averageDrawnCardsPerGame": 19.25,
+  "totalChallenges": 12409,
+  "totalChallengesWon": 171,
+  "durationSec": 19.7,
+  "gamesPerSecond": 507.61,
+  "initialMemoryMB": 200.17,
+  "finalMemoryMB": 206.82,
+  "memoryDeltaMB": 6.65,
+  "variantsRun": {
+    "CLASSIC": 3333,
+    "FLIP": 3334,
+    "MERCY": 3333
+  }
+}
