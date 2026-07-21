@@ -14,11 +14,15 @@ RUN npm ci
 COPY backend ./backend
 COPY shared ./shared
 
-# Generate Prisma Client
-RUN npx --prefix backend prisma generate
+# Prisma
+WORKDIR /app/backend
 
-# Compile TypeScript
-RUN npm --prefix backend run build
+RUN npm run prisma:generate
+
+# Build
+RUN npm run build 
+
+WORKDIR /app
 
 EXPOSE 3000
 

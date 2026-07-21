@@ -7,12 +7,15 @@
     "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/backend/src/server.js",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma db push",
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "prisma:migrate": "prisma db push --schema=./prisma/schema.prisma",
     "test": "vitest run",
     "test:watch": "vitest",
     "simulate": "ts-node tests/simulate.ts"
   },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
+  }
   "dependencies": {
     "@prisma/client": "^5.10.2",
     "cors": "^2.8.5",
