@@ -90,11 +90,11 @@ export const Leaderboard = ({
         </div>
 
         {/* Podium Layout */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '15px', height: '220px', margin: '20px 0', width: '100%' }}>
+        <div className="podium-container" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '15px', height: '220px', margin: '20px 0', width: '100%' }}>
           
           {/* 2nd place */}
           {podium[0] && (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '110px' }}>
+            <div className="podium-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '110px' }}>
               <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-text)', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%', whiteSpace: 'nowrap' }}>
                 {podium[0].username}
               </span>
@@ -111,7 +111,7 @@ export const Leaderboard = ({
 
           {/* 1st place (winner) */}
           {podium[1] && (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '130px' }}>
+            <div className="podium-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '130px' }}>
               <span style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-yellow)', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%', whiteSpace: 'nowrap' }}>
                 👑 {podium[1].username}
               </span>
@@ -128,7 +128,7 @@ export const Leaderboard = ({
 
           {/* 3rd place */}
           {podium[2] && (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '110px' }}>
+            <div className="podium-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '110px' }}>
               <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-text)', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%', whiteSpace: 'nowrap' }}>
                 {podium[2].username}
               </span>
@@ -180,7 +180,7 @@ export const Leaderboard = ({
       </div>
 
       {/* Match Report table */}
-      <div className="glass-panel" style={{ width: '100%', padding: '30px' }}>
+      <div className="glass-panel" style={{ width: '100%', padding: '30px', overflowX: 'auto' }}>
         <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '20px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '10px', color: 'var(--color-yellow)' }}>
           📊 Match Report
         </h3>

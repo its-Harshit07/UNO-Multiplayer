@@ -290,7 +290,7 @@ function App() {
     <div className={`app-container ${theme}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
 
       {/* Top Header Bar */}
-      <header style={{
+      <header className="main-header" style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '12px 30px', borderBottom: '1px solid var(--border-glass)',
         background: 'var(--bg-glass)', backdropFilter: 'blur(16px)', zIndex: 10
@@ -374,8 +374,8 @@ function App() {
           <>
             {route === 'LANDING' && (
               <div className="glass-panel" style={{
-                width: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
-                gap: '24px', margin: '20px'
+                width: '100%', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
+                gap: '24px', margin: '20px', boxSizing: 'border-box'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--color-text)' }}>
@@ -433,8 +433,8 @@ function App() {
 
             {route === 'HOST_CONFIG' && (
               <div className="glass-panel" style={{
-                width: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
-                gap: '24px', margin: '20px'
+                width: '100%', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
+                gap: '24px', margin: '20px', boxSizing: 'border-box'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--color-text)' }}>
@@ -465,7 +465,7 @@ function App() {
                       </select>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '15px' }}>
+                    <div className="host-config-row" style={{ display: 'flex', gap: '15px' }}>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         <label style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Max Players</label>
                         <select
@@ -573,8 +573,8 @@ function App() {
 
             {route === 'JOIN' && (
               <div className="glass-panel" style={{
-                width: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
-                gap: '24px', margin: '20px'
+                width: '100%', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
+                gap: '24px', margin: '20px', boxSizing: 'border-box'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--color-text)' }}>

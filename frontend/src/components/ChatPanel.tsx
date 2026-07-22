@@ -122,19 +122,19 @@ export const ChatPanel = ({
       {/* Floating Chat Panel (Desktop vs Mobile Sheet) */}
       {isOpen && (
         <div 
-          className="glass-panel"
+          className="glass-panel chat-panel-modal"
           style={isMobile ? {
-            position: 'absolute',
+            position: 'fixed',
             bottom: '76px',
             left: '50%',
             transform: 'translateX(-50%)',
             width: '90vw',
-            height: '350px',
+            height: '380px',
             display: 'flex',
             flexDirection: 'column',
             padding: '16px',
             gap: '10px',
-            zIndex: 110,
+            zIndex: 200,
             boxShadow: '0 12px 32px rgba(0,0,0,0.6)',
           } : {
             position: 'absolute',

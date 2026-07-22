@@ -56,10 +56,10 @@ export const LobbyRoom = ({
   const allPlayersReady = players.length >= 2 && players.every((p: any) => p.id === hostId || p.isReady);
 
   return (
-    <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
+    <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center', padding: '20px', width: '100%', boxSizing: 'border-box' }}>
 
       {/* Lobby info and Players */}
-      <div className="glass-panel" style={{ width: '450px', padding: '30px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '450px', padding: '30px', display: 'flex', flexDirection: 'column', gap: '24px', boxSizing: 'border-box' }}>
         <div style={{ textAlign: 'center' }}>
           <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', letterSpacing: '2px', textTransform: 'uppercase' }}>
             Room Join Code
@@ -83,18 +83,18 @@ export const LobbyRoom = ({
                 padding: '12px 16px', background: 'var(--input-bg)', border: '1px solid var(--input-border)',
                 borderRadius: '8px',
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
                   <div style={{
                     width: '36px', height: '36px', borderRadius: '50%', background: p.isBot ? 'rgba(22, 163, 74, 0.1)' : 'var(--input-bg)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem',
-                    border: p.isBot ? '1px solid var(--color-green)' : 'none'
+                    border: p.isBot ? '1px solid var(--color-green)' : 'none', flexShrink: 0
                   }}>
                     {p.isBot ? '🤖' : '👤'}
                   </div>
-                  <div>
-                    <span style={{ fontWeight: 600 }}>{p.username}</span>
-                    {p.isBot && <span style={{ marginLeft: '8px', fontSize: '0.75rem', background: 'var(--color-green)', color: '#fff', fontWeight: 800, padding: '2px 6px', borderRadius: '10px' }}>BOT</span>}
-                    {p.id === hostId && <span style={{ marginLeft: '8px', fontSize: '0.75rem', background: 'var(--color-blue)', color: '#fff', padding: '2px 6px', borderRadius: '10px' }}>Host</span>}
+                  <div style={{ minWidth: 0, display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                    <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '110px', display: 'inline-block' }} title={p.username}>{p.username}</span>
+                    {p.isBot && <span style={{ fontSize: '0.75rem', background: 'var(--color-green)', color: '#fff', fontWeight: 800, padding: '2px 6px', borderRadius: '10px' }}>BOT</span>}
+                    {p.id === hostId && <span style={{ fontSize: '0.75rem', background: 'var(--color-blue)', color: '#fff', padding: '2px 6px', borderRadius: '10px' }}>Host</span>}
                   </div>
                 </div>
                 <div>
@@ -174,7 +174,7 @@ export const LobbyRoom = ({
 
       {/* Lobby Room Config Settings Summary (Host Only) */}
       {isHost && (
-        <div className="glass-panel" style={{ width: '400px', padding: '30px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="glass-panel" style={{ width: '100%', maxWidth: '400px', padding: '30px', display: 'flex', flexDirection: 'column', gap: '20px', boxSizing: 'border-box' }}>
           <h3 style={{ fontSize: '1.2rem', fontWeight: 700, borderBottom: '1px solid var(--border-glass)', paddingBottom: '10px' }}>
             Room Settings Summary
           </h3>

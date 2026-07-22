@@ -94,7 +94,7 @@ const ActionFeed = ({ movesHistory }: { movesHistory: any[] }) => {
   }, [movesHistory]);
 
   return (
-    <div style={{
+    <div className="action-feed-container" style={{
       position: 'absolute',
       bottom: '120px',
       left: '20px',
@@ -180,6 +180,7 @@ export const GameBoard = ({
 
   const handRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
+  const [isMobileHand, setIsMobileHand] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768);
   const prevHandLength = useRef(localHand.length);
 
   useEffect(() => {
@@ -203,6 +204,7 @@ export const GameBoard = ({
 
     const checkOverflow = () => {
       setIsOverflowing(el.scrollWidth > el.clientWidth);
+      setIsMobileHand(window.innerWidth <= 768);
     };
 
     checkOverflow();
@@ -425,7 +427,7 @@ export const GameBoard = ({
     <div className={`gameplay-container ${getContainerClassName()}`}>
 
       {/* Dedicated Header Strip */}
-      <div style={{
+      <div className="gameboard-header" style={{
         width: '100%',
         height: '70px',
         borderBottom: '1px solid var(--border-glass)',
@@ -439,7 +441,7 @@ export const GameBoard = ({
         boxSizing: 'border-box'
       }}>
         {/* Left: End Match Button */}
-        <div style={{ width: '150px', display: 'flex', justifyContent: 'flex-start' }}>
+        <div className="gameboard-header-left" style={{ width: '150px', display: 'flex', justifyContent: 'flex-start' }}>
           {!isSpectator && myId === gameState.hostId && (
             <button
               onClick={() => {
@@ -466,7 +468,7 @@ export const GameBoard = ({
         </div>
 
         {/* Center: Turn Indicator & Variant Title */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
+        <div className="gameboard-header-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{
               fontSize: '0.85rem', color: 'var(--color-text-muted)',
@@ -503,7 +505,7 @@ export const GameBoard = ({
         </div>
 
         {/* Right: Spectator Count */}
-        <div style={{ width: '150px', display: 'flex', justifyContent: 'flex-end' }}>
+        <div className="gameboard-header-right" style={{ width: '150px', display: 'flex', justifyContent: 'flex-end' }}>
           <div
             title="Current Spectators"
             style={{
@@ -520,7 +522,7 @@ export const GameBoard = ({
       </div>
 
       {/* Player Ribbon immediately below the header */}
-      <div style={{
+      <div className="player-ribbon" style={{
         width: '100%',
         height: '82px',
         borderBottom: '1px solid var(--border-glass)',
@@ -533,6 +535,7 @@ export const GameBoard = ({
         padding: '6px 12px',
         boxSizing: 'border-box',
         zIndex: 90,
+        overflowX: 'auto',
       }}>
         {players.map((p: any, idx: number) => {
           const isCurrentTurn = idx === currentPlayerIndex;
@@ -554,7 +557,7 @@ export const GameBoard = ({
           return (
             <div
               key={p.id}
-              className={`glass-panel ${turnClass}`}
+              className={`glass-panel player-ribbon-card ${turnClass}`}
               style={{
                 flex: '0 1 auto',
                 width: cardWidth,
@@ -889,7 +892,7 @@ export const GameBoard = ({
         )}
 
         {/* Side Panels: Chat */}
-        <div style={{ position: 'absolute', right: '20px', bottom: '20px', zIndex: 40 }}>
+        <div className="chat-panel-container" style={{ position: 'absolute', right: '20px', bottom: '20px', zIndex: 40 }}>
           <ChatPanel
             messages={chatMessages}
             onSendMessage={onSendMessage}
@@ -994,6 +997,7 @@ export const GameBoard = ({
           {/* Fanned User Hand cards layout */}
           <div
             ref={handRef}
+            className="player-hand-container"
             style={{
               display: 'flex',
               justifyContent: isOverflowing ? 'flex-start' : 'center',
@@ -1039,8 +1043,8 @@ export const GameBoard = ({
                 // Calculate rotational/fanning translation offset
                 const total = localHand.length;
                 const mid = (total - 1) / 2;
-                const rotation = (idx - mid) * 4; // degrees
-                const translateOffset = Math.abs(idx - mid) * 2; // px translateY down
+                const rotation = (idx - mid) * (isMobileHand ? 1.5 : 4); // degrees
+                const translateOffset = Math.abs(idx - mid) * (isMobileHand ? 0.8 : 2); // px translateY down
 
                 return (
                   <div
