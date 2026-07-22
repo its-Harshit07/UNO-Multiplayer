@@ -571,6 +571,11 @@ body,
   .player-hand-container {
     height: 140px !important;
     padding: 5px 20px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .player-hand-container::-webkit-scrollbar {
+    display: none !important;
   }
   .player-hand-container .card {
     width: 78px !important;
@@ -599,6 +604,11 @@ body,
   .player-hand-container {
     height: 125px !important;
     padding: 5px 15px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .player-hand-container::-webkit-scrollbar {
+    display: none !important;
   }
   .player-hand-container .card {
     width: 64px !important;
@@ -738,15 +748,18 @@ body,
     max-width: 260px !important;
     align-items: center !important;
     z-index: 150 !important;
+    pointer-events: none !important;
   }
   .action-feed-toast {
-    padding: 6px 12px !important;
+    padding: 4px 12px !important;
     font-size: 0.78rem !important;
     border-radius: 6px !important;
     border-left-width: 3px !important;
     width: 100% !important;
     text-align: center !important;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+    opacity: 0.85 !important;
+    pointer-events: none !important;
   }
 }
 
