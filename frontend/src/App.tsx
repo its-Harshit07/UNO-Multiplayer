@@ -287,7 +287,7 @@ function App() {
   };
 
   return (
-    <div className={`app-container ${theme}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+    <div className={`app-container ${theme}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
 
       {/* Top Header Bar */}
       <header className="main-header" style={{
@@ -303,7 +303,7 @@ function App() {
         </div>
 
         {/* Audio Mute & Volume indicators */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <div className="header-controls" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           {/* Theme switcher */}
           <button
             onClick={toggleTheme}
@@ -374,8 +374,8 @@ function App() {
           <>
             {route === 'LANDING' && (
               <div className="glass-panel" style={{
-                width: '100%', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
-                gap: '24px', margin: '20px', boxSizing: 'border-box'
+                width: 'calc(100% - 40px)', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
+                gap: '24px', margin: '20px auto', boxSizing: 'border-box'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--color-text)' }}>
@@ -433,8 +433,8 @@ function App() {
 
             {route === 'HOST_CONFIG' && (
               <div className="glass-panel" style={{
-                width: '100%', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
-                gap: '24px', margin: '20px', boxSizing: 'border-box'
+                width: 'calc(100% - 40px)', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
+                gap: '24px', margin: '20px auto', boxSizing: 'border-box'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--color-text)' }}>
@@ -573,8 +573,8 @@ function App() {
 
             {route === 'JOIN' && (
               <div className="glass-panel" style={{
-                width: '100%', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
-                gap: '24px', margin: '20px', boxSizing: 'border-box'
+                width: 'calc(100% - 40px)', maxWidth: '420px', padding: '40px 30px', display: 'flex', flexDirection: 'column',
+                gap: '24px', margin: '20px auto', boxSizing: 'border-box'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--color-text)' }}>

@@ -22,6 +22,7 @@ const io = new Server(httpServer, {
   cors: {
     origin: 'https://playuno-hl.vercel.app',
     methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
 

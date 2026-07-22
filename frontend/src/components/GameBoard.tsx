@@ -911,7 +911,7 @@ export const GameBoard = ({
         )}
 
         {/* Bottom Interface: Active User Profile & Hand cards */}
-        <div style={{
+        <div className="player-hand-wrapper" style={{
           position: 'absolute', bottom: '0px', left: '50%', transform: 'translateX(-50%)',
           display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px',
           width: '90%', maxWidth: '850px', zIndex: 30, paddingBottom: '10px'
@@ -1050,9 +1050,10 @@ export const GameBoard = ({
                   <div
                     key={card.id}
                     style={{
-                      marginRight: idx === total - 1 ? 0 : '-34px', // overlapping layout
+                      marginRight: idx === total - 1 ? 0 : (isMobileHand ? '-24px' : '-34px'), // overlapping layout
                       transform: `translateY(${translateOffset}px) rotate(${rotation}deg)`,
                       transition: 'transform 0.2s ease',
+                      flexShrink: 0,
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = `translateY(${translateOffset - 28}px) scale(1.1) rotate(${rotation}deg)`;
