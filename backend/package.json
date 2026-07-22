@@ -15,7 +15,7 @@
   },
   "prisma": {
     "schema": "./prisma/schema.prisma"
-  }
+  },
   "dependencies": {
     "@prisma/client": "^5.10.2",
     "cors": "^2.8.5",

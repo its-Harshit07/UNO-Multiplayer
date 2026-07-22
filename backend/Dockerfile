@@ -1,29 +1,23 @@
-FROM node:20-alpine
+FROM node:20-bookworm-slim
 
 WORKDIR /app
 
-# Copy root configurations and workspace package files
+# Install OpenSSL so Prisma detects the correct version
+RUN apt-get update && \
+    apt-get install -y openssl && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY package*.json ./
 COPY backend/package*.json ./backend/
 COPY frontend/package*.json ./frontend/
 
-# Install dependencies using npm workspace resolution
-RUN npm ci
+RUN npm install
 
-# Copy source files
-COPY backend ./backend
-COPY shared ./shared
+COPY . .
 
-# Prisma
-WORKDIR /app/backend
-
-RUN npm run prisma:generate
-
-# Build
-RUN npm run build 
-
-WORKDIR /app
+RUN npm --prefix backend run prisma:generate
+RUN npm --prefix backend run build
 
 EXPOSE 3000
 
-CMD ["node", "backend/dist/backend/src/server.js"]
+CMD ["npm", "--prefix", "backend", "start"]
