@@ -571,6 +571,7 @@ body,
   .player-hand-scroll-container {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
+    touch-action: pan-x !important;
   }
   .player-hand-scroll-container::-webkit-scrollbar {
     display: none !important;
@@ -578,11 +579,13 @@ body,
   .player-hand-container {
     height: 140px !important;
     padding: 5px 20px !important;
+    touch-action: pan-x !important;
   }
   .player-hand-container .card {
     width: 78px !important;
     height: 120px !important;
     border-width: 2.5px !important;
+    touch-action: pan-x !important;
   }
   .player-hand-container .card .card-center-container svg {
     transform: scale(0.85);
@@ -606,6 +609,7 @@ body,
   .player-hand-scroll-container {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
+    touch-action: pan-x !important;
   }
   .player-hand-scroll-container::-webkit-scrollbar {
     display: none !important;
@@ -613,11 +617,13 @@ body,
   .player-hand-container {
     height: 125px !important;
     padding: 5px 15px !important;
+    touch-action: pan-x !important;
   }
   .player-hand-container .card {
     width: 64px !important;
     height: 98px !important;
     border-width: 2px !important;
+    touch-action: pan-x !important;
   }
   .player-hand-container .card .card-center-container svg {
     transform: scale(0.72);
