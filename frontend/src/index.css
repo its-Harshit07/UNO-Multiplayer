@@ -568,14 +568,16 @@ body,
     max-width: 100% !important;
     padding-bottom: 5px !important;
   }
-  .player-hand-container {
-    height: 140px !important;
-    padding: 5px 20px !important;
+  .player-hand-scroll-container {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
   }
-  .player-hand-container::-webkit-scrollbar {
+  .player-hand-scroll-container::-webkit-scrollbar {
     display: none !important;
+  }
+  .player-hand-container {
+    height: 140px !important;
+    padding: 5px 20px !important;
   }
   .player-hand-container .card {
     width: 78px !important;
@@ -601,14 +603,16 @@ body,
   }
 }
 @media (max-width: 480px) {
-  .player-hand-container {
-    height: 125px !important;
-    padding: 5px 15px !important;
+  .player-hand-scroll-container {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
   }
-  .player-hand-container::-webkit-scrollbar {
+  .player-hand-scroll-container::-webkit-scrollbar {
     display: none !important;
+  }
+  .player-hand-container {
+    height: 125px !important;
+    padding: 5px 15px !important;
   }
   .player-hand-container .card {
     width: 64px !important;

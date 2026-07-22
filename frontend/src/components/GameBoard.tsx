@@ -994,87 +994,95 @@ export const GameBoard = ({
             )}
           </div>
 
-          {/* Fanned User Hand cards layout */}
+          {/* Scrollable container for swipe gestures */}
           <div
             ref={handRef}
-            className="player-hand-container"
+            className="player-hand-scroll-container"
             style={{
-              display: 'flex',
-              justifyContent: isOverflowing ? 'flex-start' : 'center',
-              alignItems: 'flex-end',
-              height: '180px',
               width: '100%',
               overflowX: 'auto',
               overflowY: 'hidden',
               touchAction: 'pan-x',
               overscrollBehaviorX: 'contain',
               overscrollBehaviorY: 'contain',
-              padding: '10px 30px',
-              paddingLeft: isOverflowing ? '40px' : '30px',
-              paddingRight: isOverflowing ? '40px' : '30px',
-              gap: '-20px',
-              position: 'relative',
-              boxSizing: 'border-box',
               WebkitOverflowScrolling: 'touch',
             }}
           >
-            {isLocalPlayerEliminated ? (
-              /* Elimination Overlay Banner for Local Player */
-              <div style={{
-                position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-                background: 'rgba(37, 2, 5, 0.85)', borderRadius: '16px',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                border: '2px solid var(--color-red)', zIndex: 120, gap: '10px',
-                boxShadow: '0 -4px 30px rgba(255, 0, 0, 0.2)'
-              }}>
-                <span style={{ fontSize: '2.5rem' }}>☠️</span>
-                <h2 style={{ color: 'var(--color-red)', fontWeight: 900, fontSize: '1.4rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  You Have Been Eliminated!
-                </h2>
-                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>
-                  You reached 25+ cards in your hand. You are now spectating this match.
-                </p>
-              </div>
-            ) : (
-              (localHand || []).filter(Boolean).map((card: any, idx: number) => {
-                const playable = isCardPlayable(card);
-                const activeSide = gameState.activeSide || 'LIGHT';
+            {/* Inner flex layout container */}
+            <div
+              className="player-hand-container"
+              style={{
+                display: 'flex',
+                justifyContent: isOverflowing ? 'flex-start' : 'center',
+                alignItems: 'flex-end',
+                height: '180px',
+                width: 'max-content',
+                minWidth: '100%',
+                padding: '10px 30px',
+                paddingLeft: isOverflowing ? '40px' : '30px',
+                paddingRight: isOverflowing ? '40px' : '30px',
+                position: 'relative',
+                boxSizing: 'border-box',
+              }}
+            >
+              {isLocalPlayerEliminated ? (
+                /* Elimination Overlay Banner for Local Player */
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                  background: 'rgba(37, 2, 5, 0.85)', borderRadius: '16px',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                  border: '2px solid var(--color-red)', zIndex: 120, gap: '10px',
+                  boxShadow: '0 -4px 30px rgba(255, 0, 0, 0.2)'
+                }}>
+                  <span style={{ fontSize: '2.5rem' }}>☠️</span>
+                  <h2 style={{ color: 'var(--color-red)', fontWeight: 900, fontSize: '1.4rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    You Have Been Eliminated!
+                  </h2>
+                  <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>
+                    You reached 25+ cards in your hand. You are now spectating this match.
+                  </p>
+                </div>
+              ) : (
+                (localHand || []).filter(Boolean).map((card: any, idx: number) => {
+                  const playable = isCardPlayable(card);
+                  const activeSide = gameState.activeSide || 'LIGHT';
 
-                // Calculate rotational/fanning translation offset
-                const total = localHand.length;
-                const mid = (total - 1) / 2;
-                const rotation = (idx - mid) * (isMobileHand ? 1.5 : 4); // degrees
-                const translateOffset = Math.abs(idx - mid) * (isMobileHand ? 0.8 : 2); // px translateY down
+                  // Calculate rotational/fanning translation offset
+                  const total = localHand.length;
+                  const mid = (total - 1) / 2;
+                  const rotation = (idx - mid) * (isMobileHand ? 1.5 : 4); // degrees
+                  const translateOffset = Math.abs(idx - mid) * (isMobileHand ? 0.8 : 2); // px translateY down
 
-                return (
-                  <div
-                    key={card.id}
-                    style={{
-                      marginRight: idx === total - 1 ? 0 : (isMobileHand ? '-24px' : '-34px'), // overlapping layout
-                      transform: `translateY(${translateOffset}px) rotate(${rotation}deg)`,
-                      transition: 'transform 0.2s ease',
-                      flexShrink: 0,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = `translateY(${translateOffset - 28}px) scale(1.1) rotate(${rotation}deg)`;
-                      e.currentTarget.style.zIndex = '100';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = `translateY(${translateOffset}px) rotate(${rotation}deg)`;
-                      e.currentTarget.style.zIndex = 'auto';
-                    }}
-                  >
-                    <Card
-                      card={card}
-                      onClick={() => handleCardClick(card)}
-                      isPlayable={playable}
-                      disabled={isMyTurn && !playable}
-                      activeSide={activeSide}
-                    />
-                  </div>
-                );
-              })
-            )}
+                  return (
+                    <div
+                      key={card.id}
+                      style={{
+                        marginRight: idx === total - 1 ? 0 : (isMobileHand ? '-24px' : '-34px'), // overlapping layout
+                        transform: `translateY(${translateOffset}px) rotate(${rotation}deg)`,
+                        transition: 'transform 0.2s ease',
+                        flexShrink: 0,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = `translateY(${translateOffset - 28}px) scale(1.1) rotate(${rotation}deg)`;
+                        e.currentTarget.style.zIndex = '100';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = `translateY(${translateOffset}px) rotate(${rotation}deg)`;
+                        e.currentTarget.style.zIndex = 'auto';
+                      }}
+                    >
+                      <Card
+                        card={card}
+                        onClick={() => handleCardClick(card)}
+                        isPlayable={playable}
+                        disabled={isMyTurn && !playable}
+                        activeSide={activeSide}
+                      />
+                    </div>
+                  );
+                })
+              )}
+            </div>
           </div>
         </div>
       </div>
