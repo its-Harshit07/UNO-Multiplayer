@@ -20,7 +20,7 @@ app.get('/health', (req, res) => {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: 'https://playuno-hl.vercel.app/',
+    origin: 'playuno-hl.vercel.app',
     methods: ['GET', 'POST'],
   },
 });
