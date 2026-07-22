@@ -3,9 +3,11 @@ import { io, Socket } from 'socket.io-client';
 import { PlayerGameState, SpectatorGameState, Card, CardColor, RoomSettings } from '../../../shared/src/types';
 
 
-const SOCKET_URL = typeof window !== 'undefined' && window.location.port === '5173'
-  ? window.location.protocol + '//' + window.location.hostname + ':3000'
-  : (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000');
+const SOCKET_URL =
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== 'undefined'
+    ? `${window.location.protocol}//${window.location.hostname}:3000`
+    : 'http://localhost:3000');
 
 export function useGameSocket(onSoundPlay: (type: 'play' | 'draw' | 'shuffle' | 'tick' | 'uno' | 'victory') => void) {
   const [socket, setSocket] = useState<Socket | null>(null);
