@@ -208,7 +208,7 @@ export const Card = ({
       }
       default:
         return (
-          <span style={{
+          <span className="card-center-value" style={{
             fontSize: '3.6rem', fontWeight: 800, color: '#fff',
             textShadow: '0 4px 8px rgba(0,0,0,0.3)', fontStyle: 'italic'
           }}>{face.value}</span>
@@ -296,7 +296,7 @@ export const Card = ({
 
       {/* Top Left Mini indicator */}
       {!isWild && (
-        <span style={{
+        <span className="card-mini-label card-mini-top" style={{
           position: 'absolute', top: '6px', left: '8px',
           fontSize: '0.85rem', fontWeight: 800, color: '#fff', opacity: 0.8
         }}>
@@ -305,13 +305,13 @@ export const Card = ({
       )}
 
       {/* Main center symbol */}
-      <div style={{ zIndex: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+      <div className="card-center-container" style={{ zIndex: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
         {getSymbol()}
       </div>
 
       {/* Bottom Right Mini indicator */}
       {!isWild && (
-        <span style={{
+        <span className="card-mini-label card-mini-bottom" style={{
           position: 'absolute', bottom: '6px', right: '8px',
           fontSize: '0.85rem', fontWeight: 800, color: '#fff', opacity: 0.8,
           transform: 'rotate(180deg)'

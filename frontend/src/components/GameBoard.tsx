@@ -108,7 +108,7 @@ const ActionFeed = ({ movesHistory }: { movesHistory: any[] }) => {
       {notifications.map((notif) => (
         <div
           key={notif.id}
-          className="glass-panel"
+          className="glass-panel action-feed-toast"
           style={{
             padding: '10px 16px',
             borderRadius: '8px',

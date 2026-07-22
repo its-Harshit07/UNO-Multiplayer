@@ -577,11 +577,22 @@ body,
     height: 120px !important;
     border-width: 2.5px !important;
   }
-  .player-hand-container .card svg {
+  .player-hand-container .card .card-center-container svg {
     transform: scale(0.85);
   }
-  .player-hand-container .card span {
+  .player-hand-container .card .card-center-value {
     font-size: 2.2rem !important;
+  }
+  .player-hand-container .card .card-mini-label {
+    font-size: 0.7rem !important;
+    top: 4px !important;
+    left: 6px !important;
+  }
+  .player-hand-container .card .card-mini-bottom {
+    top: auto !important;
+    bottom: 4px !important;
+    right: 6px !important;
+    left: auto !important;
   }
 }
 @media (max-width: 480px) {
@@ -594,11 +605,22 @@ body,
     height: 98px !important;
     border-width: 2px !important;
   }
-  .player-hand-container .card svg {
-    transform: scale(0.75);
+  .player-hand-container .card .card-center-container svg {
+    transform: scale(0.72);
   }
-  .player-hand-container .card span {
+  .player-hand-container .card .card-center-value {
     font-size: 1.7rem !important;
+  }
+  .player-hand-container .card .card-mini-label {
+    font-size: 0.58rem !important;
+    top: 3px !important;
+    left: 4px !important;
+  }
+  .player-hand-container .card .card-mini-bottom {
+    top: auto !important;
+    bottom: 3px !important;
+    right: 4px !important;
+    left: auto !important;
   }
 }
 
@@ -709,11 +731,22 @@ body,
 @media (max-width: 768px) {
   .action-feed-container {
     bottom: auto !important;
-    top: 162px !important;
-    left: 10px !important;
-    width: calc(100% - 20px) !important;
-    max-width: 280px !important;
-    z-index: 95 !important;
+    top: 155px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 90% !important;
+    max-width: 260px !important;
+    align-items: center !important;
+    z-index: 150 !important;
+  }
+  .action-feed-toast {
+    padding: 6px 12px !important;
+    font-size: 0.78rem !important;
+    border-radius: 6px !important;
+    border-left-width: 3px !important;
+    width: 100% !important;
+    text-align: center !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
   }
 }
 

@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
+// Create a single global AudioContext reference to share across renders/invocations
+let globalAudioCtx: AudioContext | null = null;
+
 export function useAudio() {
   const [muted, setMuted] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -15,6 +18,9 @@ export function useAudio() {
     return 0.5;
   });
 
+  // Track if audio is unlocked
+  const [, setUnlocked] = useState(false);
+
   useEffect(() => {
     localStorage.setItem('uno_muted', String(muted));
   }, [muted]);
@@ -23,13 +29,74 @@ export function useAudio() {
     localStorage.setItem('uno_volume', String(volume));
   }, [volume]);
 
+  // Function to initialize/unlock the AudioContext
+  const unlockAudio = useCallback(() => {
+    if (typeof window === 'undefined') return;
+
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContextClass) return;
+
+    if (!globalAudioCtx) {
+      globalAudioCtx = new AudioContextClass();
+    }
+
+    if (globalAudioCtx.state === 'suspended') {
+      globalAudioCtx.resume().then(() => {
+        setUnlocked(true);
+      }).catch((err) => {
+        console.warn('AudioContext resume failed:', err);
+      });
+    } else {
+      setUnlocked(true);
+    }
+  }, []);
+
+  // Set up listeners for the first user interaction to resume the context
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const events = ['click', 'touchstart', 'touchend', 'keydown', 'mousedown'];
+
+    const handleInteraction = () => {
+      unlockAudio();
+
+      // Clean up listeners immediately after unlocking
+      events.forEach((event) => {
+        window.removeEventListener(event, handleInteraction);
+      });
+    };
+
+    events.forEach((event) => {
+      window.addEventListener(event, handleInteraction, { passive: true });
+    });
+
+    return () => {
+      events.forEach((event) => {
+        window.removeEventListener(event, handleInteraction);
+      });
+    };
+  }, [unlockAudio]);
+
   const playSound = useCallback((type: 'play' | 'draw' | 'shuffle' | 'tick' | 'uno' | 'victory') => {
     if (muted) return;
+    if (typeof window === 'undefined') return;
+
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContextClass) return;
 
     try {
-      const ctx = new AudioContextClass();
+      // Lazy initialize context if not already created
+      if (!globalAudioCtx) {
+        globalAudioCtx = new AudioContextClass();
+      }
+
+      const ctx = globalAudioCtx;
+
+      // Safe resume trigger in case state changes back to suspended
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+
       const now = ctx.currentTime;
 
       const gain = ctx.createGain();
@@ -44,7 +111,7 @@ export function useAudio() {
         osc.frequency.exponentialRampToValueAtTime(700, now + 0.06);
         gain.gain.setValueAtTime(volume * 0.8, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
-        
+
         osc.connect(gain);
         osc.start(now);
         osc.stop(now + 0.08);
@@ -67,7 +134,7 @@ export function useAudio() {
           const osc = ctx.createOscillator();
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(120 + i * 40, t);
-          
+
           const g = ctx.createGain();
           g.gain.setValueAtTime(volume * 0.25, t);
           g.gain.exponentialRampToValueAtTime(0.01, t + 0.05);
@@ -106,7 +173,7 @@ export function useAudio() {
 
         osc1.connect(gain);
         osc2.connect(gain);
-        
+
         osc1.start(now);
         osc1.stop(now + 0.35);
         osc2.start(now);
